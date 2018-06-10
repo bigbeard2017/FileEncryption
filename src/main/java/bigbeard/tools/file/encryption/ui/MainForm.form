@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="bigbeard.tools.file.encryption.ui.MainForm">
+  <grid id="27dc6" binding="rootPanel" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="946" height="487"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="f97d8" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="15576" class="javax.swing.JButton" binding="openButton" default-binding="true">
+            <constraints/>
+            <properties>
+              <text value="&amp;Open"/>
+              <toolTipText value="打开"/>
+            </properties>
+          </component>
+          <component id="2043e" class="javax.swing.JButton" binding="encrypButton" default-binding="true">
+            <constraints/>
+            <properties>
+              <text value="&amp;Encryp"/>
+              <toolTipText value="加密"/>
+            </properties>
+          </component>
+          <component id="56aaf" class="javax.swing.JButton" binding="decryptButton" default-binding="true">
+            <constraints/>
+            <properties>
+              <text value="&amp;Decrypt"/>
+              <toolTipText value="解密"/>
+            </properties>
+          </component>
+          <component id="43796" class="javax.swing.JButton" binding="reverseButton" default-binding="true">
+            <constraints/>
+            <properties>
+              <text value="&amp;Reverse"/>
+              <toolTipText value="反选"/>
+            </properties>
+          </component>
+          <component id="37717" class="javax.swing.JLabel">
+            <constraints/>
+            <properties>
+              <text value="Password:"/>
+            </properties>
+          </component>
+          <component id="23cea" class="javax.swing.JTextField" binding="passwordText">
+            <constraints/>
+            <properties>
+              <columns value="15"/>
+              <toolTipText value="输入密码"/>
+            </properties>
+          </component>
+          <component id="ccfd5" class="javax.swing.JCheckBox" binding="encryptedCheckBox" default-binding="true">
+            <constraints/>
+            <properties>
+              <text value="Encrypted"/>
+              <toolTipText value="选择已经加密"/>
+            </properties>
+          </component>
+          <component id="b3647" class="javax.swing.JCheckBox" binding="unencryptedCheckBox" default-binding="true">
+            <constraints/>
+            <properties>
+              <text value="Unencrypted"/>
+              <toolTipText value="选择未加密"/>
+            </properties>
+          </component>
+          <component id="e6d9d" class="javax.swing.JLabel">
+            <constraints/>
+            <properties>
+              <text value="算法："/>
+            </properties>
+          </component>
+          <component id="54eea" class="javax.swing.JComboBox" binding="passwordComboBox">
+            <constraints/>
+            <properties>
+              <model>
+                <item value="CustomA"/>
+                <item value="CustomB"/>
+              </model>
+              <toolTipText value="加密算法"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="5e1a4" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="5" bottom="5" right="5"/>
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <scrollpane id="8a259">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="f44d" class="javax.swing.JTable" binding="fileTable">
+                <constraints/>
+                <properties>
+                  <autoResizeMode value="3"/>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
