@@ -52,21 +52,25 @@
           <component id="23cea" class="javax.swing.JTextField" binding="passwordText">
             <constraints/>
             <properties>
-              <columns value="15"/>
+              <columns value="20"/>
+              <font size="14"/>
               <toolTipText value="输入密码"/>
             </properties>
+            <clientProperties>
+              <caretAspectRatio class="java.lang.Float" value="0.04"/>
+            </clientProperties>
           </component>
-          <component id="ccfd5" class="javax.swing.JCheckBox" binding="encryptedCheckBox" default-binding="true">
+          <component id="ccfd5" class="javax.swing.JCheckBox" binding="cbEncryption">
             <constraints/>
             <properties>
-              <text value="Encrypted"/>
+              <text value="已加密"/>
               <toolTipText value="选择已经加密"/>
             </properties>
           </component>
-          <component id="b3647" class="javax.swing.JCheckBox" binding="unencryptedCheckBox" default-binding="true">
+          <component id="b3647" class="javax.swing.JCheckBox" binding="cbNoEncryption">
             <constraints/>
             <properties>
-              <text value="Unencrypted"/>
+              <text value="未加密"/>
               <toolTipText value="选择未加密"/>
             </properties>
           </component>
@@ -76,13 +80,10 @@
               <text value="算法："/>
             </properties>
           </component>
-          <component id="54eea" class="javax.swing.JComboBox" binding="passwordComboBox">
+          <component id="54eea" class="javax.swing.JComboBox" binding="drpAlgorithm">
             <constraints/>
             <properties>
-              <model>
-                <item value="CustomA"/>
-                <item value="CustomB"/>
-              </model>
+              <model/>
               <toolTipText value="加密算法"/>
             </properties>
           </component>
@@ -106,7 +107,7 @@
               <component id="f44d" class="javax.swing.JTable" binding="fileTable">
                 <constraints/>
                 <properties>
-                  <autoResizeMode value="3"/>
+                  <autoResizeMode value="0"/>
                 </properties>
               </component>
             </children>
