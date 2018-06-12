@@ -21,6 +21,7 @@ public class EncryptionMain {
         //ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("timg.jpeg"));  //xxx代表图片存放路径，2.png图片名称及格式
         //frame.setIconImage(icon.getImage());
 
+
         frame.setContentPane(mainForm.getRootPanel());
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);

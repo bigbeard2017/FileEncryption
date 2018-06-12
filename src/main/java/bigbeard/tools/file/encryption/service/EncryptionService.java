@@ -1,18 +1,20 @@
 package bigbeard.tools.file.encryption.service;
 
+import bigbeard.tools.file.encryption.DataCatch.Catch;
 import bigbeard.tools.file.encryption.api.FileEncryAlgorithm;
+import bigbeard.tools.file.encryption.entry.FileEntry;
 import bigbeard.tools.file.encryption.service.imp.AlgorithmDES;
 import bigbeard.tools.file.encryption.service.imp.CustomAlgorithmA;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class EncryptionService {
-    //private List<AlgorithmInfo> algorithmInfos = new ArrayList<>();
+
     private Map<String, FileEncryAlgorithm> algorithmHashMap = new HashMap<>();
-
-    private EncryptionService instance;
-
 
     private EncryptionService() {
     }
@@ -41,6 +43,31 @@ public class EncryptionService {
             initAlgorithm();
         }
         return algorithmHashMap;
+    }
+
+
+    public void addFileEntry(String absolutePath) {
+        File f = new File(absolutePath);
+        addFileEntry(f);
+    }
+
+    public void addFileEntry(File file) {
+        if (!file.exists()) {
+            return;
+        }
+        FileEntry fileEntry = new FileEntry();
+        fileEntry.setFilePath(file.getAbsolutePath());
+        try {
+            FileInputStream fileInputStream = new FileInputStream(file);
+            byte[] filedata = new byte[100];
+            int read = fileInputStream.read(filedata);
+            if (read < filedata.length) {
+
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        Catch.instance().AddFileEntry(fileEntry);
     }
 
     private enum Singleton {

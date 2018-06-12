@@ -5,8 +5,8 @@ import java.io.Serializable;
 public class FileEncryInfo implements Serializable {
     private boolean isEncryption;
     private boolean enableHashCode;
-    private String algorithmName;
-    private String originalFileHashCode;
+    private char[] algorithmName = new char[150];
+    private char[] originalFileHashCode = new char[64];
 
 
     public boolean isEnableHashCode() {
@@ -18,19 +18,29 @@ public class FileEncryInfo implements Serializable {
     }
 
     public String getOriginalFileHashCode() {
-        return originalFileHashCode;
+        return new String(originalFileHashCode);
     }
 
     public void setOriginalFileHashCode(String originalFileHashCode) {
-        this.originalFileHashCode = originalFileHashCode;
+        char[] chars = originalFileHashCode.toCharArray();
+        if (chars.length > this.originalFileHashCode.length) {
+            throw new OutOfMemoryError("HashCode超过最大限度,当前最大限度为" + this.originalFileHashCode.length);
+        } else {
+            this.originalFileHashCode = chars;
+        }
     }
 
     public String getAlgorithmName() {
-        return algorithmName;
+        return new String(algorithmName);
     }
 
     public void setAlgorithmName(String algorithmName) {
-        this.algorithmName = algorithmName;
+        char[] chars = algorithmName.toCharArray();
+        if (chars.length > this.algorithmName.length) {
+            throw new OutOfMemoryError("算法名称超过最大限度,当前最大限度为" + this.algorithmName.length);
+        } else {
+            this.algorithmName = chars;
+        }
     }
 
     public boolean isEncryption() {
