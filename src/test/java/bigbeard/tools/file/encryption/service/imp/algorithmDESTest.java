@@ -5,6 +5,7 @@ import org.junit.Test;
 
 public class algorithmDESTest {
 
+
     private static String unEncryPath = "/home/bigbeard/workall/work/greatech/Docs/CodeDocs/DatabaseDesign_2/码表定义.txt";
     private static String encryPath = "/home/bigbeard/workall/work/greatech/Docs/CodeDocs/DatabaseDesign_2/yjm码表定义.txt";
     private FileEncryAlgorithm algorithmDES = new AlgorithmDES();

@@ -6,7 +6,6 @@ public class FileEntry implements Serializable {
     private String filePath;
     private String fileName;
     private String fileSize;
-
     private String fileExtendName;
     private FileEncryInfo fileEncryInfo;
 

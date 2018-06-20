@@ -10,7 +10,7 @@ import java.util.Map;
 public class EncryptionMain {
     public static void main(String[] args) {
         JFrame frame = new JFrame("File Encryption");
-        frame.setSize(850, 500);
+        frame.setSize(950, 500);
         MainForm mainForm = new MainForm();
         EncryptionService.instance().initAlgorithm();
         Map<String, FileEncryAlgorithm> algorithmInfos = EncryptionService.instance().getAlgorithmInfos();
@@ -20,8 +20,6 @@ public class EncryptionMain {
         });
         //ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("timg.jpeg"));  //xxx代表图片存放路径，2.png图片名称及格式
         //frame.setIconImage(icon.getImage());
-
-
         frame.setContentPane(mainForm.getRootPanel());
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);

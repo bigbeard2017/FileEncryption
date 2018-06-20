@@ -24,7 +24,7 @@ public class Catch implements Serializable {
                 x.getFilePath() != null
                         && x.getFilePath().equals(fileEntry.getFilePath())
         );
-        System.out.println(fileEntry1.isPresent());
+        //System.out.println(fileEntry1.isPresent());
         if (!fileEntry1.isPresent()) {
             fileEntries.add(fileEntry);
         }
