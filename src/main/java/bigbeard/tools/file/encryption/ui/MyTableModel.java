@@ -19,10 +19,12 @@ public class MyTableModel extends AbstractTableModel {
         data = new Object[dataList.size()][7];
         for (int i = 0; i < dataList.size(); i++) {
             UIFileEntry uiFileEntry = dataList.get(i);
-            data[i][0] = new Boolean(uiFileEntry.isSelected());
-            data[i][1] = new Boolean(uiFileEntry.getFileEncryInfo().isEncryption());
+            data[i][0] = uiFileEntry.isSelected();
+            if (null != uiFileEntry.getFileEncryInfo()) {
+                data[i][1] = uiFileEntry.getFileEncryInfo().isEncryption();
+                data[i][3] = uiFileEntry.getFileEncryInfo().getAlgorithmName();
+            }
             data[i][2] = uiFileEntry.getFileSize();
-            data[i][3] = uiFileEntry.getFileEncryInfo().getAlgorithmName();
             data[i][4] = uiFileEntry.getFileName();
             data[i][5] = uiFileEntry.getFileExtendName();
             data[i][6] = uiFileEntry.getFilePath();
@@ -31,34 +33,29 @@ public class MyTableModel extends AbstractTableModel {
 
     @Override
     public Class<?> getColumnClass(int arg0) {
-        // TODO Auto-generated method stub
         return cellType[arg0];
     }
     @Override
     public String getColumnName(int arg0) {
-        // TODO Auto-generated method stub
         return headerTitle[arg0];
     }
     @Override
     public int getColumnCount() {
-        // TODO Auto-generated method stub
         return headerTitle.length;
     }
 
     @Override
     public int getRowCount() {
-        // TODO Auto-generated method stub
         return data.length;
     }
     @Override
     public Object getValueAt(int r, int c) {
-        // TODO Auto-generated method stub
         return data[r][c];
     }
 
     //重写isCellEditable方法
     public boolean isCellEditable(int r, int c) {
-        return true;
+        return c == 0;
     }
 
     //重写setValueAt方法
