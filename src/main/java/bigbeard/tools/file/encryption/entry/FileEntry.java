@@ -3,11 +3,20 @@ package bigbeard.tools.file.encryption.entry;
 import java.io.Serializable;
 
 public class FileEntry implements Serializable {
+    private boolean isSelected;
     private String filePath;
     private String fileName;
     private String fileSize;
     private String fileExtendName;
     private FileEncryInfo fileEncryInfo;
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 
     public String getFilePath() {
         return filePath;

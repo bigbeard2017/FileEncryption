@@ -30,6 +30,13 @@ public class Catch implements Serializable {
         }
     }
 
+    public List<FileEntry> getFileEntries() {
+        return fileEntries;
+    }
+
+    public void clear() {
+        fileEntries.clear();
+    }
     public int getFileEntriesSize() {
         return fileEntries.size();
     }

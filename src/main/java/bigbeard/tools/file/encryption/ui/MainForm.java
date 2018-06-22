@@ -1,7 +1,8 @@
 package bigbeard.tools.file.encryption.ui;
 
-import bigbeard.tools.file.encryption.entry.FileEncryInfo;
+import bigbeard.tools.file.encryption.entry.FileEntry;
 import bigbeard.tools.file.encryption.service.EncryptionService;
+import bigbeard.tools.file.encryption.ui.api.NotifyValueChanged;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 
@@ -10,8 +11,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -31,10 +32,15 @@ public class MainForm {
 
     private MyTableModel model;
 
+    private NotifyValueChanged notifyValueChanged;
 
     public MainForm() {
         $$$setupUI$$$();
         init();
+    }
+
+    public void setNotifyValueChanged(NotifyValueChanged notifyValueChanged) {
+        this.notifyValueChanged = notifyValueChanged;
     }
 
     /**
@@ -76,32 +82,23 @@ public class MainForm {
                 fileDialog.setMultipleMode(true);
                 fileDialog.setVisible(true);
                 File[] files = fileDialog.getFiles();
-                ArrayList<UIFileEntry> fileEntries = new ArrayList<>(files.length);
+                if (files.length > 0) {
+                    EncryptionService.instance().clear();
+                }
                 Arrays.stream(files).forEach(file -> {
                     EncryptionService.instance().addFileEntry(file);
-                    UIFileEntry uiFileEntry = new UIFileEntry();
-                    uiFileEntry.setSelected(false);
-                    uiFileEntry.setFilePath(file.getAbsolutePath());
-                    String fileName = file.getName();
-                    int i = fileName.lastIndexOf(".");
-
-                    if (i + 1 < file.length()) {
-                        String suffix = fileName.substring(i + 1);
-                        uiFileEntry.setFileExtendName(suffix);
-                    } else {
-                        uiFileEntry.setFileExtendName("");
-                    }
-                    uiFileEntry.setFileName(fileName);
-                    uiFileEntry.setFileSize(String.valueOf(String.format("%.2f", file.length() / 1024f)));
-                    FileEncryInfo fileEncryInfo = new FileEncryInfo();
-                    fileEncryInfo.setAlgorithmName("");
-                    fileEncryInfo.setEncryption(false);
-                    uiFileEntry.setFileEncryInfo(fileEncryInfo);
-                    fileEntries.add(uiFileEntry);
                 });
-                model = new MyTableModel();
-                model.initData(fileEntries);
-                fileTable.setModel(model);
+                if ((fileTable.getModel() instanceof MyTableModel) == false) {
+                    model = new MyTableModel();
+                    model.setNotifyValueChanged(notifyValueChanged);
+                    List<FileEntry> fileEntries = EncryptionService.instance().getAllFileEntry();
+                    model.initData(fileEntries);
+                    fileTable.setModel(model);
+                } else {
+                    ((MyTableModel) fileTable.getModel()).initData(EncryptionService.instance().getAllFileEntry());
+                    fileTable.updateUI();
+
+                }
             }
         });
         encrypButton.addMouseListener(new MouseAdapter() {
@@ -158,8 +155,6 @@ public class MainForm {
         panel1.add(label1);
         passwordText = new JTextField();
         passwordText.setColumns(20);
-        Font passwordTextFont = this.$$$getFont$$$(null, -1, 14, passwordText.getFont());
-        if (passwordTextFont != null) passwordText.setFont(passwordTextFont);
         passwordText.setToolTipText("输入密码");
         panel1.add(passwordText);
         cbEncryption = new JCheckBox();
@@ -174,8 +169,7 @@ public class MainForm {
         label2.setText("算法：");
         panel1.add(label2);
         drpAlgorithm = new JComboBox();
-        final DefaultComboBoxModel defaultComboBoxModel1 = new DefaultComboBoxModel();
-        drpAlgorithm.setModel(defaultComboBoxModel1);
+
         drpAlgorithm.setToolTipText("加密算法");
         panel1.add(drpAlgorithm);
         final JPanel panel2 = new JPanel();
@@ -188,24 +182,6 @@ public class MainForm {
         scrollPane1.setViewportView(fileTable);
     }
 
-    /**
-     * @noinspection ALL
-     */
-    private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
-        if (currentFont == null) return null;
-        String resultName;
-        if (fontName == null) {
-            resultName = currentFont.getName();
-        } else {
-            Font testFont = new Font(fontName, Font.PLAIN, 10);
-            if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
-                resultName = fontName;
-            } else {
-                resultName = currentFont.getName();
-            }
-        }
-        return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
-    }
 
     /**
      * @noinspection ALL

@@ -1,5 +1,8 @@
 package bigbeard.tools.file.encryption.ui;
 
+import bigbeard.tools.file.encryption.entry.FileEntry;
+import bigbeard.tools.file.encryption.ui.api.NotifyValueChanged;
+
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
@@ -13,12 +16,16 @@ public class MyTableModel extends AbstractTableModel {
     private Class[] cellType = {Boolean.class, Boolean.class, int.class, String.class, String.class, String.class, String.class};
 
     private Object[][] data = null;
+    private NotifyValueChanged notifyValueChanged;
 
+    public void setNotifyValueChanged(NotifyValueChanged notifyValueChanged) {
+        this.notifyValueChanged = notifyValueChanged;
+    }
 
-    public void initData(List<UIFileEntry> dataList) {
+    public void initData(List<FileEntry> dataList) {
         data = new Object[dataList.size()][7];
         for (int i = 0; i < dataList.size(); i++) {
-            UIFileEntry uiFileEntry = dataList.get(i);
+            FileEntry uiFileEntry = dataList.get(i);
             data[i][0] = uiFileEntry.isSelected();
             if (null != uiFileEntry.getFileEncryInfo()) {
                 data[i][1] = uiFileEntry.getFileEncryInfo().isEncryption();
@@ -35,10 +42,12 @@ public class MyTableModel extends AbstractTableModel {
     public Class<?> getColumnClass(int arg0) {
         return cellType[arg0];
     }
+
     @Override
     public String getColumnName(int arg0) {
         return headerTitle[arg0];
     }
+
     @Override
     public int getColumnCount() {
         return headerTitle.length;
@@ -48,6 +57,7 @@ public class MyTableModel extends AbstractTableModel {
     public int getRowCount() {
         return data.length;
     }
+
     @Override
     public Object getValueAt(int r, int c) {
         return data[r][c];
@@ -62,5 +72,16 @@ public class MyTableModel extends AbstractTableModel {
     public void setValueAt(Object value, int r, int c) {
         data[r][c] = value;
         this.fireTableCellUpdated(r, c);
+    }
+
+    //重写单元格编辑后的方法
+    public void fireTableCellUpdated(int row, int column) {
+        super.fireTableCellUpdated(row, column);
+        if (column == 0) {
+            Object o = data[row][column];
+            if (null != notifyValueChanged) {
+                notifyValueChanged.notifyChange(data[row]);
+            }
+        }
     }
 }

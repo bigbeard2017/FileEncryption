@@ -3,6 +3,8 @@ package bigbeard.tools.file.encryption.service.imp;
 import bigbeard.tools.file.encryption.api.FileEncryAlgorithm;
 import org.junit.Test;
 
+import java.io.UnsupportedEncodingException;
+
 public class algorithmDESTest {
 
 
@@ -22,5 +24,25 @@ public class algorithmDESTest {
     public void encrypt() {
         boolean encrypt = algorithmDES.encrypt(unEncryPath, encryPath, pwd);
         System.out.println(encrypt);
+    }
+
+    @Test
+    public void test() {
+        byte[] chars = null;
+        try {
+            chars = "abcd".getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        byte[] bb = new byte[100];
+        System.arraycopy(chars, 0, bb, 0, chars.length);
+        try {
+            String s = new String(bb, "UTF-8");
+            System.out.println(s);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        System.out.println("");
     }
 }

@@ -1,13 +1,16 @@
 package bigbeard.tools.file.encryption.entry;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+
+import static bigbeard.tools.file.encryption.util.ConstValue.*;
 
 public class FileEncryInfo implements Serializable {
-    private boolean isEncryption;
-    private boolean enableHashCode;
-    private char[] algorithmName = new char[150];
-    private char[] originalFileHashCode = new char[64];
 
+    private boolean isEncryption = false;
+    private boolean enableHashCode = false;
+    private String algorithmName;
+    private String originalFileHashCode;
 
     public boolean isEnableHashCode() {
         return enableHashCode;
@@ -18,28 +21,39 @@ public class FileEncryInfo implements Serializable {
     }
 
     public String getOriginalFileHashCode() {
-        return new String(originalFileHashCode);
+        return originalFileHashCode;
     }
 
     public void setOriginalFileHashCode(String originalFileHashCode) {
-        char[] chars = originalFileHashCode.toCharArray();
-        if (chars.length > this.originalFileHashCode.length) {
-            throw new OutOfMemoryError("HashCode超过最大限度,当前最大限度为" + this.originalFileHashCode.length);
+        byte[] chars = new byte[0];
+        try {
+            chars = originalFileHashCode.getBytes(ENCODE);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        if (chars.length > START_HASH_CODE_LEN) {
+            throw new OutOfMemoryError("HashCode超过最大限度,当前最大限度为" + START_HASH_CODE_LEN);
         } else {
-            this.originalFileHashCode = chars;
+            this.originalFileHashCode = originalFileHashCode;
         }
     }
 
     public String getAlgorithmName() {
-        return new String(algorithmName);
+        return algorithmName;
     }
 
     public void setAlgorithmName(String algorithmName) {
-        char[] chars = algorithmName.toCharArray();
-        if (chars.length > this.algorithmName.length) {
-            throw new OutOfMemoryError("算法名称超过最大限度,当前最大限度为" + this.algorithmName.length);
+        //char[] chars = algorithmName.toCharArray();
+        byte[] asciis = null;
+        try {
+            asciis = algorithmName.getBytes(ENCODE);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        if (asciis.length > START_ALGORITHM_NAME_LEN) {
+            throw new OutOfMemoryError("算法名称超过最大限度,当前最大限度为" + START_ALGORITHM_NAME_LEN);
         } else {
-            this.algorithmName = chars;
+            this.algorithmName = algorithmName;
         }
     }
 
@@ -49,5 +63,23 @@ public class FileEncryInfo implements Serializable {
 
     public void setEncryption(boolean encryption) {
         isEncryption = encryption;
+    }
+
+    public byte[] getAlgorithmNameByte() {
+        try {
+            return this.algorithmName.getBytes(ENCODE);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public byte[] getOriginalFileHashCodeByte() {
+        try {
+            return this.originalFileHashCode.getBytes(ENCODE);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
