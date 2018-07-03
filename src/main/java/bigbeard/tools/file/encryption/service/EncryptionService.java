@@ -64,6 +64,7 @@ public class EncryptionService {
     public void clear() {
         Catch.instance().clear();
     }
+
     public void addFileEntry(File file) {
         if (!file.exists()) {
             return;

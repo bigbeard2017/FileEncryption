@@ -37,6 +37,7 @@ public class Catch implements Serializable {
     public void clear() {
         fileEntries.clear();
     }
+
     public int getFileEntriesSize() {
         return fileEntries.size();
     }

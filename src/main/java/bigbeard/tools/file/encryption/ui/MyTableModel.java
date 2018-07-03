@@ -11,6 +11,8 @@ import java.util.List;
  */
 public class MyTableModel extends AbstractTableModel {
 
+    private static final int COLUMN_COUNT = 7;
+
     private String headerTitle[] = {"选择", "是否加密", "文件大小", "加密算法", "文件名称", "文件类型", "文件路径"};
 
     private Class[] cellType = {Boolean.class, Boolean.class, int.class, String.class, String.class, String.class, String.class};
@@ -24,20 +26,56 @@ public class MyTableModel extends AbstractTableModel {
 
 
     public void initData(List<FileEntry> dataList) {
-        data = new Object[dataList.size()][7];
+        data = new Object[dataList.size()][COLUMN_COUNT];
         for (int i = 0; i < dataList.size(); i++) {
             FileEntry uiFileEntry = dataList.get(i);
-            data[i][0] = uiFileEntry.isSelected();
-            if (null != uiFileEntry.getFileEncryInfo()) {
-                data[i][1] = uiFileEntry.getFileEncryInfo().isEncryption();
-                data[i][3] = uiFileEntry.getFileEncryInfo().getAlgorithmName();
-            }
-            data[i][2] = uiFileEntry.getFileSize();
-            data[i][4] = uiFileEntry.getFileName();
-            data[i][5] = uiFileEntry.getFileExtendName();
-            data[i][6] = uiFileEntry.getFilePath();
+            insertData(data, i, uiFileEntry);
         }
     }
+
+    private void insertData(Object[][] d, int i, FileEntry uiFileEntry) {
+        d[i][0] = uiFileEntry.isSelected();
+        if (null != uiFileEntry.getFileEncryInfo()) {
+            d[i][1] = uiFileEntry.getFileEncryInfo().isEncryption();
+            d[i][3] = uiFileEntry.getFileEncryInfo().getAlgorithmName();
+        }
+        d[i][2] = uiFileEntry.getFileSize();
+        d[i][4] = uiFileEntry.getFileName();
+        d[i][5] = uiFileEntry.getFileExtendName();
+        d[i][6] = uiFileEntry.getFilePath();
+    }
+
+//    /**
+//     * 将信息追加到末尾
+//     * <p/>
+//     * 此方法会重建数组，涉及到数组元素的拷贝，比较耗性能
+//     *
+//     * @param dataList
+//     */
+//    public void addData(List<FileEntry> dataList) {
+//        if (null == dataList || dataList.size() == 0) {
+//            return;
+//        }
+//        Object[][] newData = null;
+//        if (null != data) {
+//            newData = new Object[dataList.size() + data.length][COLUMN_COUNT];
+//        } else {
+//            initData(dataList);
+//            return;
+//        }
+//        int start = 0;
+//        for (start = 0; start < data.length; start++) {
+//            for (int j = 0; j < COLUMN_COUNT; j++) {
+//                newData[start][j] = data[start][j];
+//            }
+//        }
+//        int s=0;
+//        for (; s < dataList.size(); s++) {
+//            FileEntry fileEntry = dataList.get(s);
+//            insertData(newData,s+start,fileEntry);
+//        }
+//        data=newData;
+//    }
 
     @Override
     public Class<?> getColumnClass(int arg0) {

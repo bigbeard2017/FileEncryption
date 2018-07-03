@@ -7,6 +7,7 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 
 import javax.swing.*;
+import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -94,7 +95,9 @@ public class MainForm {
                     List<FileEntry> fileEntries = EncryptionService.instance().getAllFileEntry();
                     model.initData(fileEntries);
                     fileTable.setModel(model);
-                    fileTable.getColumnModel().getColumn(0).setPreferredWidth(30);
+                    TableColumnModel columnModel = fileTable.getColumnModel();
+                    columnModel.getColumn(0).setPreferredWidth(30);
+                    columnModel.getColumn(1).setPreferredWidth(50);
 
                 } else {
                     ((MyTableModel) fileTable.getModel()).initData(EncryptionService.instance().getAllFileEntry());
