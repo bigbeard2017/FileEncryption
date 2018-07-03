@@ -94,10 +94,11 @@ public class MainForm {
                     List<FileEntry> fileEntries = EncryptionService.instance().getAllFileEntry();
                     model.initData(fileEntries);
                     fileTable.setModel(model);
+                    fileTable.getColumnModel().getColumn(0).setPreferredWidth(30);
+
                 } else {
                     ((MyTableModel) fileTable.getModel()).initData(EncryptionService.instance().getAllFileEntry());
                     fileTable.updateUI();
-
                 }
             }
         });
@@ -107,9 +108,10 @@ public class MainForm {
 
             }
         });
-
+        fileTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         passwordText.setSize(50, 25);
         drpAlgorithm.setSize(150, 25);
+
     }
 
 
@@ -151,7 +153,7 @@ public class MainForm {
         reverseButton.setToolTipText("反选");
         panel1.add(reverseButton);
         final JLabel label1 = new JLabel();
-        label1.setText("Password:");
+        label1.setText("PWD:");
         panel1.add(label1);
         passwordText = new JTextField();
         passwordText.setColumns(20);
@@ -169,7 +171,6 @@ public class MainForm {
         label2.setText("算法：");
         panel1.add(label2);
         drpAlgorithm = new JComboBox();
-
         drpAlgorithm.setToolTipText("加密算法");
         panel1.add(drpAlgorithm);
         final JPanel panel2 = new JPanel();
@@ -181,7 +182,6 @@ public class MainForm {
         fileTable.setAutoResizeMode(0);
         scrollPane1.setViewportView(fileTable);
     }
-
 
     /**
      * @noinspection ALL

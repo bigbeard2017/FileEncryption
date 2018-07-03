@@ -46,7 +46,7 @@
           <component id="37717" class="javax.swing.JLabel">
             <constraints/>
             <properties>
-              <text value="Password:"/>
+              <text value="PWD:"/>
             </properties>
           </component>
           <component id="23cea" class="javax.swing.JTextField" binding="passwordText">

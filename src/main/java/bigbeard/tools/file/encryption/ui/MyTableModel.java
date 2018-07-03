@@ -22,6 +22,7 @@ public class MyTableModel extends AbstractTableModel {
         this.notifyValueChanged = notifyValueChanged;
     }
 
+
     public void initData(List<FileEntry> dataList) {
         data = new Object[dataList.size()][7];
         for (int i = 0; i < dataList.size(); i++) {
